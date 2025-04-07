@@ -1,32 +1,13 @@
-# _Sample project_
+# ESP32 WiFi Drone / FC
 
-(See the README.md file in the upper level 'examples' directory for more information about examples.)
+This project is a minimalist flight controller firmware for the ESP32, developed using the ESP-IDF framework in C/C++. The firmware utilizes the Digital Motion Processor (DMP) found in TDK IMU modules such as the MPU6050, MPU6500, and MPU9250.
 
-This is the simplest buildable example. The example is used by command `idf.py create-project`
-that copies the project to user specified path and set it's name. For more information follow the [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project)
+It features PID-based control loops running at 200Hz to manage roll, pitch, and yaw angles. The project is also designed to support altitude stabilization using pressure sensors like the BMP280 or BMP388.
 
+    The main branch contains the initial prototype firmware.
 
+    Development for version v1.1 is currently in progress.
 
-## How to use example
-We encourage the users to use the example as a template for the new projects.
-A recommended way is to follow the instructions on a [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project).
+In addition to the firmware, I have also designed PCB layouts for both the mini drone and its flight controller. These designs can be found in the hardware/ directory.
 
-## Example folder contents
-
-The project **sample_project** contains one source file in C language [main.c](main/main.c). The file is located in folder [main](main).
-
-ESP-IDF projects are built using CMake. The project build configuration is contained in `CMakeLists.txt`
-files that provide set of directives and instructions describing the project's source files and targets
-(executable, library, or both). 
-
-Below is short explanation of remaining files in the project folder.
-
-```
-├── CMakeLists.txt
-├── main
-│   ├── CMakeLists.txt
-│   └── main.c
-└── README.md                  This is the file you are currently reading
-```
-Additionally, the sample project contains Makefile and component.mk files, used for the legacy Make based build system. 
-They are not used or needed when building with CMake and idf.py.
+follow my linkedin post for more info. [vist](https://www.linkedin.com/posts/nuran-nimdinu-5639562a8_esp32-dronedevelopment-pcbdesign-activity-7313055099948343298-wLOK?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEot7JsB93VQnTDrcylimKZKjH7dZPS82M8)
