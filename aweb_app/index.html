@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DRONE</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <button id="update_button" onclick="open_pannel('update_dropdown')">UPDATE</button>
+    <button id="kpid_button" onclick="open_pannel('set_param_kpid')">KPID</button>
+    <button id="mot_para_button" onclick="open_pannel('set_param_motors')">MOTOR</button>
+    <button id="console_button" onclick="open_pannel('esp_console')">CONSOLE</button>
+    <h2>ESP DRONE</h2>
+    <label id="progress">Connecting....</label>
+  </header>
+
+  <div id="update_dropdown" class="d1_dropdown">
+    <input type="file" id="fileInput" />
+    <br>
+    <button id="uploadButton">Upload</button>
+    <br>
+    <label id="progressupload">Upload Progress</label>
+  </div>
+
+  <div id="set_param_kpid" class="d1_dropdown">
+    <select id="kpid_cat" onchange="changeKpid()">
+      <option value="kpid">kpid</option>
+      <option value="krRP">Rate Ro Pi</option>
+      <option value="kryw">Rate Yaw</option>
+    </select>
+    <br>
+    <label for="kp">Kp :</label>
+    <input id="kp" type="number" value="0">
+    <br>
+    <label for="ki">Ki :</label>
+    <input id="ki" type="number" value="0">
+    <br>
+    <label for="kd">Kd :</label>
+    <input id="kd" type="number" value="0">
+    <br>
+    <button onclick="wsSendData('kpid')">Send Kpid</button>
+  </div>
+
+  <div id="set_param_motors" class="d1_dropdown">
+    <h4>MOTOR CALIB</h4>
+    <label for="calib_mot_1">m1 :</label>
+    <input id="calib_mot_1" type="number" value="0">
+    <label for="bcalib_mot_2">m2 :</label>
+    <input id="calib_mot_2" type="number" value="0">
+    <label for="calib_mot_3">m3 :</label>
+    <input id="calib_mot_3" type="number" value="0">
+    <label for="calib_mot_4">m4 :</label>
+    <input id="calib_mot_4" type="number" value="0">
+    <br>
+    <button onclick="wsSendData('motc')">set motor calib</button>
+    <br>
+    <label for="max_mot">max motor :</label>
+    <input id="max_mot" type="number" value="0" max="1024" min="0">
+    <button onclick="wsSendData('motm')">set motor max</button>
+  </div>
+
+  <div id="esp_console" class="d1_dropdown">
+    <div id="deb_console_box">
+      <p id="deb_console"></p>
+    </div>
+    <button onclick="resetcon()">clear console</button>
+  </div>
+
+  <div id="container">
+    <div class="setting_buttons">
+
+      <button id="espReset">RESTART ESP</button>
+      <button id="rrun" onclick="wsSendData('runnr')" value=2>RUN</button>
+      <button id="rStop" onclick="wsSendData('runns')" value=0>STOP</button>
+      <button id="calib" onclick="wsSendData('runnc')" value=3>calibration</button>
+      <label for="runnum">runNum</label>
+      <input id="runnum" type="number">
+      <button onclick="wsSendData('runnn')">runn</button>
+      <button onclick="wsSendData('swit')">SWITCH</button>
+    </div>
+
+    <div id="EM_stop_btn">
+      <h3 style="margin: auto;">EMERGENCY STOP</h3>
+    </div>
+
+    <div id="controllers_box">
+
+      <div class="verticle_slider-container atitude_slider-container">
+        <label class="verticle_slider_header">ATITUDE</label>
+        <input type="range" class="verticle_slider" id="atitude_slider"
+          oninput="set_value_range_slider('atitude_slider'), sendtows()" min="2048" max="4095" value="2048">
+        <label class="verticle_slider_val" id="atitude_slider_val">00</label>
+      </div>
+      <!-- <div class="verticle_slider-container atitude_slider-container">
+        <label class="verticle_slider_header">X</label>
+        <input type="range" class="verticle_slider" id="x_slider"
+          oninput="set_value_range_slider('x_slider') , sendtows()" min="-512" max="512" value="0">
+        <label class="verticle_slider_val" id="x_slider_val">00</label>
+      </div> -->
+      <div id="joyBox" style="border: 1px solid yellow; border-radius: 10px;">
+        <p style="text-align: center;">
+          X: <span id="x_coordinate"> </span>
+          Y: <span id="y_coordinate"> </span>
+          <!-- Speed: <span id="speed"> </span> %
+          Angle: <span id="angle"> </span> -->
+        </p>
+        <canvas id="canvas" name="game"></canvas>
+      </div>
+    </div>
+
+
+  </div>
+
+
+  <script src="main.js"></script>
+</body>
+
+</html>

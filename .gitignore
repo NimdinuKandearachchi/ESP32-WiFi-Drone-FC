@@ -1,0 +1,8 @@
+build/
+# sdkconfig
+managed_components
+.devcontainer
+.vscode
+sdkconfig.old
+bin_files
+tespcpp
